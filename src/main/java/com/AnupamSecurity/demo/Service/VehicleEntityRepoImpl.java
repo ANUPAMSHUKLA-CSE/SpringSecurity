@@ -19,7 +19,6 @@ public class VehicleEntityRepoImpl {
 
     public Reciept generate(CreateRequest request) {
         Vehicle vehicle = Vehicle.builder()
-                .id(UUID.randomUUID())
                 .vehicleName(request.vehicleName())
                 .vehicleNumber(request.vehicleNumber())
                 .amountCharged(request.amountCharged())

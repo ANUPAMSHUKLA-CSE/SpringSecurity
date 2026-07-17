@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 
 //Our own user service i.e MyUserDetails service----for that load it by the userName
 //in context of spring security we call username =email and password....
-@Service
+//@Service
 @RequiredArgsConstructor
 public class UserService implements UserDetailsService {
 
