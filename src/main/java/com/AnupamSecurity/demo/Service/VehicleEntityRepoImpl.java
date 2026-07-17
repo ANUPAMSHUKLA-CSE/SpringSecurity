@@ -3,7 +3,7 @@ package com.AnupamSecurity.demo.Service;
 import com.AnupamSecurity.demo.DO.Request.CreateRequest;
 import com.AnupamSecurity.demo.DO.Response.Reciept;
 import com.AnupamSecurity.demo.Mapper.VehicleMapper;
-import com.AnupamSecurity.demo.Repository.Vehicle;
+import com.AnupamSecurity.demo.Entities.Vehicle;
 import com.AnupamSecurity.demo.Repository.VehicleEntityRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

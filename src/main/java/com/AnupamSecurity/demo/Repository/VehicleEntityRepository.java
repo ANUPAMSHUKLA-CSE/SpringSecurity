@@ -1,6 +1,6 @@
 package com.AnupamSecurity.demo.Repository;
 
-import com.AnupamSecurity.demo.DO.Response.Reciept;
+import com.AnupamSecurity.demo.Entities.Vehicle;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

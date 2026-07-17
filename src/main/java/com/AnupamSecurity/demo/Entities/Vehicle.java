@@ -1,4 +1,4 @@
-package com.AnupamSecurity.demo.Repository;
+package com.AnupamSecurity.demo.Entities;
 
 
 import jakarta.persistence.*;
