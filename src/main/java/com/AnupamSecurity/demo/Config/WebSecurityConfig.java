@@ -1,6 +1,8 @@
 package com.AnupamSecurity.demo.Config;
 
 
+import com.AnupamSecurity.demo.filters.JwtAuthFilter;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -16,11 +18,16 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 
 @EnableWebSecurity
 @Configuration
+@RequiredArgsConstructor
 public class WebSecurityConfig {
+
+    private  final JwtAuthFilter jwtAuthFilter;
+
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         System.out.println("=== WebSecurityConfig Loaded ===");
@@ -29,10 +36,11 @@ public class WebSecurityConfig {
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/v1/entry","/v1/allList","/auth/**").permitAll()
-                        .requestMatchers("/v1/delete").hasAnyRole( "ADMIN")
+                        //.requestMatchers("/v1/**").authenticated()
                         .anyRequest().authenticated())
                 .sessionManagement(sessionConfig -> sessionConfig.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .formLogin(Customizer.withDefaults());
+                .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
+              //  .formLogin(Customizer.withDefaults());
         return  httpSecurity.build();
     }
 
@@ -51,10 +59,7 @@ public class WebSecurityConfig {
 //        return new InMemoryUserDetailsManager(normalUser,adminUser);
 //    }
 
-    @Bean
-    PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
+
 
     @Bean
     AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
