@@ -27,6 +27,7 @@ public class JwtService {
         return Jwts.builder()
                 .subject(user.getId().toString())
                 .claim("email",user.getEmail())
+                .claim("name",user.getName())
                 .claim("roles", Set.of("ADMIN","USER"))
                 .issuedAt(new Date())
                 .expiration(new Date(System.currentTimeMillis()+ 1000*60))  //expires at 60 sec
@@ -39,7 +40,7 @@ public class JwtService {
         Claims claims=Jwts.parser()
                 .verifyWith(getSecretKey())
                 .build()
-                .parseClaimsJws(token)
+                .parseSignedClaims(token)
                 .getPayload();    // Payload is the actual claims
         // if token get expires or something else then it will give some error
         return  Long.valueOf(claims.getSubject());
